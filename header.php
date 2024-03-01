@@ -32,5 +32,5 @@
 </nav>
 
     <h1 align="center">NSS Library Management</h1>
-    <div class="container">
+<div class="container">
     

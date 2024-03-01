@@ -11,12 +11,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $isbn = $_POST['isbn'];
     $author = $_POST['author'];
     $quantity = $_POST['quantity'];
-    // Assuming you have a column named image_data that stores the file path or binary data
-    // You may need to handle file uploads separately if you are allowing users to change images
-    $image_data = $_FILES['image_data']['name']; // This would be for file upload handling
+
+    // Check if a new image is uploaded
+    if(isset($_FILES['image_data']) && $_FILES['image_data']['error'] == 0) {
+        $image_data = $_FILES['image_data']['name'];
+        $target_directory = "images/";
+        $target_file = $target_directory . basename($_FILES["image_data"]["name"]);
+
+        // Move uploaded file to the images directory
+        if (move_uploaded_file($_FILES["image_data"]["tmp_name"], $target_file)) {
+            echo "The file ". htmlspecialchars( basename( $_FILES["image_data"]["name"])). " has been uploaded.";
+            // Update the image path in the database
+            $sql_image = "UPDATE books SET image_path='$target_file' WHERE id='$id'";
+            $conn->query($sql_image);
+        } else {
+            echo "Sorry, there was an error uploading your file.";
+        }
+    }
 
     // Update the database with the new values
-    $sql = "UPDATE books SET name='$name', isbn='$isbn', author='$author', quantity='$quantity', image_data='$image_data' WHERE id='$id'";
+    $sql = "UPDATE books SET name='$name', isbn='$isbn', author='$author', quantity='$quantity' WHERE id='$id'";
     if ($conn->query($sql) === TRUE) {
         echo "Record updated successfully";
         // Redirect to home page after successful update
@@ -37,8 +51,7 @@ if ($result->num_rows > 0) {
     $isbn = $row['isbn'];
     $author = $row['author'];
     $quantity = $row['quantity'];
-    // Assuming you have a column named image_data that stores the file path or binary data
-    $image_data = $row['image_data'];
+    $image_path = $row['image_path'];
 } else {
     // Handle the case where no data is found for the given ID
     // For example, redirect the user to an error page or show an error message
@@ -47,7 +60,7 @@ if ($result->num_rows > 0) {
 
 ?>
 
-<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="row g-3">
+<form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="row g-3" enctype="multipart/form-data">
     <div class="col-md-6">
         <label for="id" class="form-label">ID:</label>
         <input type="text" name="id" class="form-control" value="<?php echo $id; ?>" readonly required>
@@ -70,7 +83,7 @@ if ($result->num_rows > 0) {
     </div>
     <div class="col-md-6">
         <label for="image_data" class="form-label">Image:</label>
-        <input type="file" name="image_data" class="form-control" accept="image/*" value='<?php echo $image_data; ?>' required>
+        <input type="file" name="image_data" class="form-control" accept="image/*">
     </div>
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Update</button>

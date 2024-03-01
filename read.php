@@ -16,16 +16,25 @@ if ($result && $result->num_rows > 0) {
     $book = $result->fetch_assoc();
     // Display the book details
     echo "<h2>Book Details</h2>";
-    echo "<img href='$image_data'>";
+    echo "<img src='" . $book['image_path'] . "' alt='Book Image'>";
     echo "<p>ID: " . $book['id'] . "</p>";
     echo "<p>Name: " . $book['name'] . "</p>";
     echo "<p>ISBN: " . $book['isbn'] . "</p>";
     echo "<p>Author: " . $book['author'] . "</p>";
+    echo "<p>Quantity: " . $book['quantity'] . "</p>";
     // You may also display other details such as image, etc.
 } else {
     // If no matching record found, display an error message
     echo "No book found with the provided ID.";
 }
+?>
 
+<style>
+    img{
+        height: 250px;
+        width: 300px;
+    }
+</style>
+<?php
 require("footer.php");
 ?>

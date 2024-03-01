@@ -62,6 +62,11 @@ form .value_submit .btn{
     margin-left: 20px;
 }
 
+.records{
+    display: flex;
+    justify-content: space-between;
+}
+
 .btn{
     margin-bottom: 0px !important;
 
@@ -76,25 +81,27 @@ form .value_submit .btn{
 </style>
 
 <div class="container">
-    <form method="get">
+    
+
+    <a href="add.php"><button data-mdb-ripple-init type="submit" class="btn btn-primary mb-4">Add New</button></a>
+    <h3 align="center">Books in Our Library</h3>
+
+    <form method="get" class="records">
         <div class="search">
         <label for="search_book">Search by Book Name:</label>
         <div class="value_submit">
         <input type="text" name="search_book" value="<?php echo $search_book; ?>" placeholder="enter book name">
-        <button data-mdb-ripple-init type="submit" class="btn btn-primary mb-4" onclick="search()">Search</button>
+        <button data-mdb-ripple-init type="submit" class="btn btn-primary mb-4">Search</button>
         </div>
         </div>
         <div class="search">
         <label for="search_author">Search by Author Name:</label>
         <div class="value_submit">
         <input type="text" name="search_author" value="<?php echo $search_author; ?>" placeholder="enter author name">
-        <button data-mdb-ripple-init type="submit" class="btn btn-primary mb-4" onclick="search()">Search</button>
+        <button data-mdb-ripple-init type="submit" class="btn btn-primary mb-4">Search</button>
         </div>
         </div>
     </form>
-
-    <a href="add.php"><button data-mdb-ripple-init type="submit" class="btn btn-primary mb-4">Add New</button></a>
-    <h3>Books in Our Library</h3>
     <table border="1">
         <tr>
             <th>ID</th>
@@ -102,7 +109,7 @@ form .value_submit .btn{
             <th>ISBN</th>
             <th>AUTHOR</th>
             <th>QUANTITY</th>
-            <th>ACTION</th>
+            <th style="text-align: center;">ACTION</th>
         </tr>
         <?php
         if ($result->num_rows > 0) {
@@ -114,7 +121,7 @@ form .value_submit .btn{
                     <td><?php echo $row['isbn']; ?></td>
                     <td><?php echo $row['author']; ?></td>
                     <td><?php echo $row['quantity']; ?></td>
-                    <td>
+                    <td align="center">
                         <a href="read.php?id=<?php echo $row['id']; ?>"><button data-mdb-ripple-init type="submit" class="btn btn-primary mb-4">
                             Read
                         </button></a>
@@ -134,17 +141,6 @@ form .value_submit .btn{
         ?>
     </table>
 </div>
-
-<script>
-    function search(){
-        let by_author = document.form.search_author.value
-        let by_book = document.form.search_book.value
-        if(by_author=="" && by_book==""){
-            alert("Input name of book or author")
-        }
-
-    }
-</script>
 
 <?php
 require("footer.php");
