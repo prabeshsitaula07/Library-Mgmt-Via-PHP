@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $isbn = $_POST['isbn'];
     $author = $_POST['author'];
     $quantity = $_POST['quantity'];
+    $description = $_POST['description'];
 
     // Handle image upload
     $targetDirectory = "images/"; // Folder where images will be uploaded
@@ -49,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "The file ". htmlspecialchars( basename( $_FILES["image_data"]["name"])). " has been uploaded.";
             // Insert the data into the database
             $image_path = $targetFile; // Store the path to the image in the database
-            $sql = "INSERT INTO books (id, name, author, quantity, isbn, image_path) VALUES ('$id', '$name', '$author', '$quantity', '$isbn', '$image_path')";
+            $sql = "INSERT INTO books (id, name, author, quantity, isbn, description, image_path) VALUES ('$id', '$name', '$author', '$quantity', '$isbn', '$description', '$image_path')";
             if ($conn->query($sql) === TRUE) {
                 echo "New record added successfully";
                 // Redirect to the home page or any other page after adding the record
@@ -87,6 +88,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="quantity" class="form-label">Quantity:</label>
         <input type="text" name="quantity" class="form-control" required>
     </div>
+    <div class="col-md-6">
+        <label for="description" class="form-label">Description Of Book:</label>
+        <input type="text" name="description" class="form-control" required>
+    </div>
+
     <div class="col-md-6">
         <label for="image_data" class="form-label">Image:</label>
         <input type="file" name="image_data" class="form-control" accept=".jpg, .png, .jpeg" required>

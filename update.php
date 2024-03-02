@@ -11,6 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $isbn = $_POST['isbn'];
     $author = $_POST['author'];
     $quantity = $_POST['quantity'];
+    $description = $_POST['description'];
 
     // Check if a new image is uploaded
     if(isset($_FILES['image_data']) && $_FILES['image_data']['error'] == 0) {
@@ -30,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Update the database with the new values
-    $sql = "UPDATE books SET name='$name', isbn='$isbn', author='$author', quantity='$quantity' WHERE id='$id'";
+    $sql = "UPDATE books SET name='$name', isbn='$isbn', author='$author', quantity='$quantity', description='$description' WHERE id='$id'";
     if ($conn->query($sql) === TRUE) {
         echo "Record updated successfully";
         // Redirect to home page after successful update
@@ -51,6 +52,7 @@ if ($result->num_rows > 0) {
     $isbn = $row['isbn'];
     $author = $row['author'];
     $quantity = $row['quantity'];
+    $description = $row['description'];
     $image_path = $row['image_path'];
 } else {
     // Handle the case where no data is found for the given ID
@@ -83,8 +85,13 @@ if ($result->num_rows > 0) {
     </div>
     <div class="col-md-6">
         <label for="image_data" class="form-label">Image:</label>
-        <input type="file" name="image_data" class="form-control" accept="image/*">
+        <input type="file" name="image_data" class="form-control" accept="image/*" required>
     </div>
+    <div class="col-md-6">
+        <label for="description" class="form-label">Description:</label>
+        <textarea name="description" class="form-control" rows="6" required><?php echo $description; ?></textarea>
+    </div>
+    
     <div class="col-12">
         <button type="submit" class="btn btn-primary">Update</button>
     </div>
