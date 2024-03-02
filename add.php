@@ -31,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Check file size
     if ($_FILES["image_data"]["size"] > 500000) {
-        echo "Sorry, your file is too large.";
+        echo "Your file is too large.";
         $uploadOk = 0;
     }
 
@@ -89,14 +89,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" name="quantity" class="form-control" required>
     </div>
     <div class="col-md-6">
-        <label for="description" class="form-label">Description Of Book:</label>
-        <input type="text" name="description" class="form-control" required>
-    </div>
-
-    <div class="col-md-6">
         <label for="image_data" class="form-label">Image:</label>
         <input type="file" name="image_data" class="form-control" accept=".jpg, .png, .jpeg" required>
     </div>
+    <div class="col-md-6">
+        <label for="description" class="form-label">Description Of Book:</label>
+        <textarea type="text" name="description" class="form-control" rows="6" required></textarea>
+    </div>
+
     <div class="col-12">
         <button type="submit" class="btn btn-primary">ADD</button>
     </div>
