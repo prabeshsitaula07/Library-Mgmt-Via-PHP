@@ -62,6 +62,7 @@ if ($result->num_rows > 0) {
 
 ?>
 
+<h2 align="center">Update Book</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" class="row g-3" enctype="multipart/form-data">
     <div class="col-md-6">
         <label for="id" class="form-label">ID:</label>
@@ -85,7 +86,7 @@ if ($result->num_rows > 0) {
     </div>
     <div class="col-md-6">
         <label for="image_data" class="form-label">Image:</label>
-        <input type="file" name="image_data" class="form-control" accept="image/*" required>
+        <input type="file" name="image_data" class="form-control" accept="image/*" value='$image_path' required>
     </div>
     <div class="col-md-6">
         <label for="description" class="form-label">Description:</label>
@@ -96,5 +97,4 @@ if ($result->num_rows > 0) {
         <button type="submit" class="btn btn-primary">Update</button>
     </div>
 </form>
-
 <?php require("footer.php") ?>

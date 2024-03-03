@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     // Check file size
-    if ($_FILES["image_data"]["size"] > 500000) {
+    if ($_FILES["image_data"]["size"] > 1000000) {
         echo "Your file is too large.";
         $uploadOk = 0;
     }
@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 ?>
-
+<h2 align="center">Add Books</h2>
 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data" class="row g-3">
     <div class="col-md-6">
         <label for="id" class="form-label">ID:</label>
