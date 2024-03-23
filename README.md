@@ -29,7 +29,7 @@ CREATE TABLE books (
     author VARCHAR(255) NOT NULL,
     quantity INT NOT NULL
 );
-
+````
 
 ## Usage
 
@@ -42,3 +42,16 @@ CREATE TABLE books (
 4. Update the database connection details in connection.php if necessary.
 5. Start the PHP development server.
 6. Access the application through your web browser.
+
+## Demo SS
+1. Home Page
+<img src="home-page.png">
+
+2. ADD Page
+<img src="add-page.png">
+
+3. Read Page
+<img src="read-page.png">
+
+4. Update Page
+<img src="update-page.png">
